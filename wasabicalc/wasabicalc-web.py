@@ -12,57 +12,61 @@ app.css.append_css({
 })
 
 app.layout = html.Div(children=[
-    html.H1('Input parameters:'),
+    html.H1('wasabicalc'),
 
-    html.Div([
-        html.Label('Full backup interval [days]:'),
-        dcc.Input(id='full_interval',
-                  value=30, inputmode='numeric', type='number', min=1)]),
+    html.Div(className='floatright', id='output-graph'),
 
-    html.Div([
-        html.Label('Full backup initial size [GB]: '),
-        dcc.Input(id='full_initial_size',
-                  value=500, inputmode='numeric', type='number', step=50)]),
+    html.Div(className='floatleft', children=[
 
-    html.Div([
-        html.Label('Partial backup interval [days]: '),
-        dcc.Input(id='partial_interval',
-                  value=1, inputmode='numeric', type='number', min=1)]),
+        html.H2('Input parameters:'),
+        html.Div([
+            html.Label('Full backup interval [days]:'),
+            dcc.Input(id='full_interval',
+                      value=30, inputmode='numeric', type='number', min=1)]),
 
-    html.Div([
-        html.Label('Partial backup size [GB]'),
-        dcc.Input(id='partial_size',
-                  value=1, inputmode='numeric', type='number')]),
+        html.Div([
+            html.Label('Full backup initial size [GB]: '),
+            dcc.Input(id='full_initial_size',
+                      value=500, inputmode='numeric', type='number', step=50)]),
 
-    html.Div([
-        html.Label('Partial backup size variation (min) [GB]: '),
-        dcc.Input(id='partial_size_var_min',
-                  value=-1, inputmode='numeric', type='number')]),
+        html.Div([
+            html.Label('Partial backup interval [days]: '),
+            dcc.Input(id='partial_interval',
+                      value=1, inputmode='numeric', type='number', min=1)]),
 
-    html.Div([
-        html.Label('Partial backup size variation (max) [GB] '),
-        dcc.Input(id='partial_size_var_max',
-                  value=1, inputmode='numeric', type='number')]),
+        html.Div([
+            html.Label('Partial backup size [GB]'),
+            dcc.Input(id='partial_size',
+                      value=1, inputmode='numeric', type='number')]),
 
-    html.Div([
-        html.Label('Retention period [days]:'),
-        dcc.Input(id='retention',
-                  value=90, inputmode='numeric', type='number', min=1)]),
+        html.Div([
+            html.Label('Partial backup size variation (min) [GB]: '),
+            dcc.Input(id='partial_size_var_min',
+                      value=-1, inputmode='numeric', type='number')]),
 
-    html.Div([
-        html.Label('Time range [months]:'),
-        dcc.Input(id='time_range',
-                  value=12, inputmode='numeric', type='number', step=1,
-                  min=1)]),
+        html.Div([
+            html.Label('Partial backup size variation (max) [GB] '),
+            dcc.Input(id='partial_size_var_max',
+                      value=1, inputmode='numeric', type='number')]),
 
-    dcc.Input(id='price_mnimum',
-              # hidden when this issue gets fixed:
-              # https://github.com/plotly/dash-core-components/issues/169
-              value=4.99, inputmode='numeric', type='hidden'),
-    dcc.Input(id='minimum_storage_time',
-              value=90, inputmode='numeric', type='hidden'),
+        html.Div([
+            html.Label('Retention period [days]:'),
+            dcc.Input(id='retention',
+                      value=90, inputmode='numeric', type='number', min=1)]),
 
-    html.Div(id='output-graph')
+        html.Div([
+            html.Label('Time range [months]:'),
+            dcc.Input(id='time_range',
+                      value=12, inputmode='numeric', type='number', step=1,
+                      min=1)]),
+
+        dcc.Input(id='price_mnimum',
+                  # hidden when this issue gets fixed:
+                  # https://github.com/plotly/dash-core-components/issues/169
+                  value=4.99, inputmode='numeric', type='hidden'),
+        dcc.Input(id='minimum_storage_time',
+                  value=90, inputmode='numeric', type='hidden')
+    ])
 ])
 
 
