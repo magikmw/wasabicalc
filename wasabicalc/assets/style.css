@@ -1,0 +1,29 @@
+h1{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.textcontainer {
+    text-align: justify;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.inputs {
+    max-width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.label_with_inputs {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    max-width: 80%;
+}
+
+.graph {
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}

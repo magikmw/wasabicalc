@@ -12,17 +12,27 @@ app.css.append_css({
 })
 
 app.layout = html.Div(children=[
+
     html.H1('wasabicalc'),
 
-    html.Div(className='floatright', id='output-graph'),
+    html.Div(className='textcontainer', children=[
+        html.H2('''Blurb subtitle'''),
+        html.P('''This is a blurb.'''),
+    ]),
 
-    html.Div(className='floatleft', children=[
+    html.Div(className='graph', id='output-graph'),
+
+    html.Div(className='inputs', children=[
 
         html.H2('Input parameters:'),
-        html.Div([
+        html.Div(className='label_with_inputs', children=[
             html.Label('Full backup interval [days]:'),
-            dcc.Input(id='full_interval',
-                      value=30, inputmode='numeric', type='number', min=1)]),
+            # dcc.Input(id='full_interval',
+                      # value=30, inputmode='numeric', type='number', min=1)]),
+            dcc.Slider(id='full_interval',
+                       value=30, min=1, max=90, step=None,
+                       marks={i: '{0}'.format(i) for i in range(0,91,15)}
+                       )]),
 
         html.Div([
             html.Label('Full backup initial size [GB]: '),
