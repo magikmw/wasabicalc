@@ -10,7 +10,7 @@ PARTIAL_SIZE = 0.1
 PARTIAL_SIZE_VAR = (-5, 5)
 RETENTION = 90
 
-TIME_RANGES = [30, 60, 90, 180, 360]
+TIME_RANGE = 360
 PRICE_MINIMUM = 4.99
 PRICE_PER_UNIT = PRICE_MINIMUM/1024
 MINIMUM_STORAGE_TIME = 90
@@ -56,17 +56,25 @@ def wasabicalc(parameters):
     """Run the program."""
     random.seed()
 
-    FULL_INTERVAL = parameters['full_interval']
-    FULL_INITIAL_SIZE = parameters['full_initial_size']
-    PARTIAL_INTERVAL = parameters['partial_interval']
-    PARTIAL_SIZE = parameters['partial_size']
-    PARTIAL_SIZE_VAR = parameters['partial_size_var']
-    RETENTION = parameters['retention']
+    def int_or_float(s):
+        try:
+            return int(s)
+        except ValueError:
+            return float(s)
 
-    TIME_RANGES = parameters['time_ranges']
-    PRICE_MINIMUM = parameters['price_minimum']
+    FULL_INTERVAL = int(parameters['full_interval'])
+    FULL_INITIAL_SIZE = int(parameters['full_initial_size'])
+    PARTIAL_INTERVAL = int(parameters['partial_interval'])
+    PARTIAL_SIZE = int_or_float(parameters['partial_size'])
+    PARTIAL_SIZE_VAR = [
+        int_or_float(parameters['partial_size_var'][0]),
+        int_or_float(parameters['partial_size_var'][1])]
+    RETENTION = int(parameters['retention'])
+
+    TIME_RANGE = int(parameters['time_range'])
+    PRICE_MINIMUM = int_or_float(parameters['price_minimum'])
     PRICE_PER_UNIT = PRICE_MINIMUM/1024
-    MINIMUM_STORAGE_TIME = parameters['minimum_storage_time']
+    MINIMUM_STORAGE_TIME = int(parameters['minimum_storage_time'])
     BACKUP_TYPE = {'full': 0, 'partial': 1}
 
     elapsed_time = 0
@@ -79,7 +87,7 @@ def wasabicalc(parameters):
     if latest_parent is None:
         backups.append(bpayload((elapsed_time), 0, source_size))
 
-    for day in range(TIME_RANGES[-1]):
+    for day in range(TIME_RANGE):
         elapsed_time += 1
         # Daily - cleanup of deleted elements over 90 days old
         for backup in backups:
@@ -124,7 +132,7 @@ def main():
         partial_size=PARTIAL_SIZE,
         partial_size_var=PARTIAL_SIZE_VAR,
         retention=RETENTION,
-        time_ranges=TIME_RANGES,
+        time_range=TIME_RANGE,
         price_minimum=PRICE_MINIMUM,
         minimum_storage_time=MINIMUM_STORAGE_TIME
     )
