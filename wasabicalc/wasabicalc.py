@@ -95,7 +95,7 @@ def wasabicalc(parameters):
         elif day % PARTIAL_INTERVAL == 0:
             size_delta = random.uniform(PARTIAL_SIZE_VAR[0], PARTIAL_SIZE_VAR[1]) + PARTIAL_SIZE
             source_size += size_delta
-            backups.append(bpayload((elapsed_time), 1, size_delta, backups[-1]))
+            backups.append(bpayload((elapsed_time), 1, abs(size_delta), backups[-1]))
 
         # Monthly - cost calculation
         if day % 30 == 0:
