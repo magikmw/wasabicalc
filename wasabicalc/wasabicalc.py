@@ -72,7 +72,7 @@ def wasabicalc(parameters):
     RETENTION = int(parameters['retention'])
 
     TIME_RANGE = int(parameters['time_range'])
-    PRICE_MINIMUM = int_or_float(parameters['price_minimum'])
+    PRICE_MINIMUM = float(parameters['price_minimum'])
     PRICE_PER_UNIT = PRICE_MINIMUM/1024
     MINIMUM_STORAGE_TIME = int(parameters['minimum_storage_time'])
     BACKUP_TYPE = {'full': 0, 'partial': 1}
