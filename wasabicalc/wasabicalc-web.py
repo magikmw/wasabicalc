@@ -7,6 +7,10 @@ import wasabicalc
 
 app = dash.Dash()
 
+app.css.append_css({
+    "external_url": "https://cdn.rawgit.com/yegor256/tacit/gh-pages/tacit-css-1.3.3.min.css"
+})
+
 app.layout = html.Div(children=[
     html.Div(children='''
         Input parameters:
