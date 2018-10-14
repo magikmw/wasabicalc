@@ -117,46 +117,19 @@ def main():
     """Run the program."""
     random.seed()
 
-    elapsed_time = 0
-    latest_parent = None
-    source_size = FULL_INITIAL_SIZE
-    cost_raport = []
+    wasabicalc_params = dict(
+        full_interval=FULL_INTERVAL,
+        full_initial_size=FULL_INITIAL_SIZE,
+        partial_interval=PARTIAL_INTERVAL,
+        partial_size=PARTIAL_SIZE,
+        partial_size_var=PARTIAL_SIZE_VAR,
+        retention=RETENTION,
+        time_ranges=TIME_RANGES,
+        price_minimum=PRICE_MINIMUM,
+        minimum_storage_time=MINIMUM_STORAGE_TIME
+    )
 
-    backups = []
-
-    if latest_parent is None:
-        backups.append(bpayload((elapsed_time), 0, source_size))
-
-    for day in range(TIME_RANGES[-1]):
-        elapsed_time += 1
-        # Daily - cleanup of deleted elements over 90 days old
-        for backup in backups:
-            # print("{0}, {1}".format(backup.tstamp, elapsed_time))
-            if backup.tstamp + MINIMUM_STORAGE_TIME <= elapsed_time and backup.deleted is True:
-                backups.remove(backup)
-
-        # On FULL_INTERVAL - full backup
-        if day % FULL_INTERVAL == 0:
-            backups.append(bpayload((elapsed_time), 0, source_size))
-
-        # On PARTIAL_INTERVAL - partial backup
-        elif day % PARTIAL_INTERVAL == 0:
-            size_delta = random.uniform(PARTIAL_SIZE_VAR[0], PARTIAL_SIZE_VAR[1]) + PARTIAL_SIZE
-            source_size += size_delta
-            backups.append(bpayload((elapsed_time), 1, size_delta, backups[-1]))
-
-        # Monthly - cost calculation
-        if day % 30 == 0:
-            cost_raport.append(calculate_cost(day, backups, PRICE_MINIMUM, PRICE_PER_UNIT))
-
-        # Daily - retention check
-        for backup in backups:
-            if backup.btype == BACKUP_TYPE['full']:
-                if backup.tstamp + RETENTION <= elapsed_time:
-                    backup.deleted = True
-            if backup.btype == BACKUP_TYPE['partial']:
-                if backup.parent.deleted is True:
-                    backup.deleted = True
+    cost_raport = wasabicalc(wasabicalc_params)
 
     for month in cost_raport:
         print("{0}:\t Size:\t {1} GB\t Cost:\t ${2}".format(month[0]+1, round(month[1], 2), round(month[2], 3)))
