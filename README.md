@@ -5,6 +5,14 @@ A cost calculator for incremental backup schemes to Wasabi storage.
 ## What is this?
 
 
+Assumptions:
+- Using an incramental backup system without rollup functionality like duplicity or restic
+- Retention routine marks all partials tied to a full backup for deletion when the full backup is up for deletion [TODO - toggle to reverse this behaviour]
+
+Disclaimer - this calculator:
+- Doesn't take deduplication into account (AFAIK deduplication wont work on object storage with minimum storage time)
+- Doesn't take compression into account - you should probably check the compressed size and use that for calculations
+- Doesn't support calculations for more than one backup per day - fairly easy to change, so offer a pull request if you need it
 
 ## Getting Started
 
