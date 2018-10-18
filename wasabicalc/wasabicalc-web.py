@@ -27,48 +27,57 @@ app.layout = html.Div(children=[
         html.H2('Input parameters:'),
         html.Div(className='label_with_inputs', children=[
             html.Label('Full backup interval [days]:'),
-            # dcc.Input(id='full_interval',
-                      # value=30, inputmode='numeric', type='number', min=1)]),
             dcc.Slider(id='full_interval',
                        value=30, min=1, max=90, step=None,
-                       marks={i: '{0}'.format(i) for i in range(0,91,15)}
+                       marks={i: '{0}'.format(i) for i in range(0, 91, 15)}
                        )]),
 
-        html.Div([
+        html.Div(className='label_with_inputs', children=[
             html.Label('Full backup initial size [GB]: '),
-            dcc.Input(id='full_initial_size',
-                      value=500, inputmode='numeric', type='number', step=50)]),
+            dcc.Slider(id='full_initial_size',
+                       value=500, min=0, max=10000,
+                       marks={i: '{0}'.format(i)
+                              for i in range(0, 10001, 1000)}
+                       )]),
 
-        html.Div([
+        html.Div(className='label_with_inputs', children=[
             html.Label('Partial backup interval [days]: '),
-            dcc.Input(id='partial_interval',
-                      value=1, inputmode='numeric', type='number', min=1)]),
+            dcc.Slider(id='partial_interval',
+                       value=1, min=1, max=30,
+                       marks={i: '{0}'.format(i) for i in range(0, 31, 5)}
+                       )]),
 
-        html.Div([
+        html.Div(className='label_with_inputs', children=[
             html.Label('Partial backup size [GB]'),
-            dcc.Input(id='partial_size',
-                      value=1, inputmode='numeric', type='number')]),
+            dcc.Slider(id='partial_size',
+                       value=1, min=0, max=1000,
+                       marks={i: '{0}'.format(i) for i in range(0, 1001, 100)}
+                       )]),
 
-        html.Div([
+        html.Div(className='label_with_inputs', children=[
             html.Label('Partial backup size variation (min) [GB]: '),
-            dcc.Input(id='partial_size_var_min',
-                      value=-1, inputmode='numeric', type='number')]),
+            dcc.RangeSlider(id='partial_size_var',
+                            value=[-1, 1], min=-100, max=100,
+                            marks={i: '{0}'.format(i)
+                                   for i in range(-100, 101, 10)}
+                            )]),
 
-        html.Div([
-            html.Label('Partial backup size variation (max) [GB] '),
-            dcc.Input(id='partial_size_var_max',
-                      value=1, inputmode='numeric', type='number')]),
-
-        html.Div([
+        html.Div(className='label_with_inputs', children=[
             html.Label('Retention period [days]:'),
-            dcc.Input(id='retention',
-                      value=90, inputmode='numeric', type='number', min=1)]),
+            dcc.Slider(id='retention',
+                       value=90, min=30, max=360, step=None,
+                       marks={i: '{0}'.format(i) for i in range(30, 361, 30)}
+                       )]),
 
-        html.Div([
+        html.Div(className='label_with_inputs', children=[
             html.Label('Time range [months]:'),
-            dcc.Input(id='time_range',
-                      value=12, inputmode='numeric', type='number', step=1,
-                      min=1)]),
+            # dcc.Input(id='time_range',
+            #           value=12, inputmode='numeric', type='number', step=1,
+            #           min=1)]),
+            dcc.Slider(id='time_range',
+                       value=12, min=1, max=36, step=None,
+                       marks={i: '{0}'.format(i) for i in range(0, 37, 3)}
+                       )]),
 
         dcc.Input(id='price_mnimum',
                   # hidden when this issue gets fixed:
@@ -87,8 +96,7 @@ app.layout = html.Div(children=[
         Input(component_id='full_initial_size', component_property='value'),
         Input(component_id='partial_interval', component_property='value'),
         Input(component_id='partial_size', component_property='value'),
-        Input(component_id='partial_size_var_min', component_property='value'),
-        Input(component_id='partial_size_var_max', component_property='value'),
+        Input(component_id='partial_size_var', component_property='value'),
         Input(component_id='retention', component_property='value'),
         Input(component_id='time_range', component_property='value'),
         Input(component_id='price_mnimum', component_property='value'),
@@ -100,8 +108,7 @@ def update_graph(
     input_full_initial_size,
     input_partial_interval,
     input_partial_size,
-    input_partial_size_var_min,
-    input_partial_size_var_max,
+    input_partial_size_var,
     input_retention,
     input_time_range,
     input_price_minimum,
@@ -112,10 +119,9 @@ def update_graph(
             full_initial_size=input_full_initial_size,
             partial_interval=input_partial_interval,
             partial_size=input_partial_size,
-            partial_size_var=[input_partial_size_var_min,
-                              input_partial_size_var_max],
+            partial_size_var=input_partial_size_var,
             retention=input_retention,
-            time_range=input_time_range*30,
+            time_range=input_time_range*30+1,
             price_minimum=input_price_minimum,
             minimum_storage_time=input_minimum_storage_time
     )
