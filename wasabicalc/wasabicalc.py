@@ -78,7 +78,6 @@ def wasabicalc(parameters):
     BACKUP_TYPE = {'full': 0, 'partial': 1}
 
     day = 0
-    latest_parent = None
     source_size = FULL_INITIAL_SIZE
     cost_raport = []
 
@@ -87,7 +86,8 @@ def wasabicalc(parameters):
     for day in range(TIME_RANGE):
         # Daily - cleanup of deleted elements over 90 days old
         for backup in backups:
-            if backup.tstamp + MINIMUM_STORAGE_TIME <= day and backup.deleted is True:
+            if backup.tstamp + MINIMUM_STORAGE_TIME <= day and \
+                    backup.deleted is True:
                 backups.remove(backup)
 
         # On FULL_INTERVAL - full backup
@@ -96,13 +96,23 @@ def wasabicalc(parameters):
 
         # On PARTIAL_INTERVAL - partial backup
         elif day % PARTIAL_INTERVAL == 0:
-            size_delta = random.uniform(PARTIAL_SIZE_VAR[0], PARTIAL_SIZE_VAR[1]) + PARTIAL_SIZE
+            size_delta = random.uniform(
+                PARTIAL_SIZE_VAR[0],
+                PARTIAL_SIZE_VAR[1]) \
+                + PARTIAL_SIZE
             source_size += size_delta
             backups.append(bpayload((day), 1, abs(size_delta), backups[-1]))
 
         # Monthly - cost calculation
         if day % 30 == 0 and day != 0:
-            cost_raport.append(calculate_cost(day, backups, PRICE_MINIMUM, PRICE_PER_UNIT))
+            cost_raport.append(
+                calculate_cost(
+                    day,
+                    backups,
+                    PRICE_MINIMUM,
+                    PRICE_PER_UNIT
+                    )
+                )
 
         # Daily - retention check
         for backup in backups:
@@ -135,7 +145,12 @@ def main():
     cost_raport = wasabicalc(wasabicalc_params)
 
     for month in cost_raport:
-        print("{0}:\t Size:\t {1} GB\t Cost:\t ${2}".format(month[0]+1, round(month[1], 2), round(month[2], 3)))
+        print("{0}:\t Size:\t {1} GB\t Cost:\t ${2}".format(
+            month[0]+1,
+            round(month[1], 2),
+            round(month[2], 3)
+            )
+        )
 
     print(cost_raport)
 
