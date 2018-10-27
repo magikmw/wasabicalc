@@ -12,13 +12,31 @@ app.css.append_css({
     "https://cdn.rawgit.com/yegor256/tacit/gh-pages/tacit-css-1.3.3.min.css"
 })
 
+app.title="wasabicalc by magikmw"
+
 app.layout = html.Div(children=[
 
     html.H1('wasabicalc'),
 
     html.Div(className='textcontainer', children=[
-        html.H2('''Blurb subtitle'''),
-        html.P('''This is a blurb.'''),
+        html.H2('''What is this?'''),
+        dcc.Markdown(
+'''
+wasabicalc is a cost calculator for a backup scheme involving any incramental backup solution with an object storage service called [wasabi](https://wasabi.com/).
+
+I've created wasabicalc due to wasabi's minimum 90-day storage charge. While overall wasabi's pricing is strightforward compared to other storage providers (no egress or API call charges), if your storage needs mean adding and removing files on a regular basis (as is common with incramenal backup software like [restic](https://restic.net/) or [duplicity](http://duplicity.nongnu.org/)) you probably want to adjust your backup and retention policies so you don't upload your backups into high costs over next three months.
+
+You can read more about the minimum 90-day storage charge in wasabi's [pricing FAQ](https://wasabi.com/pricing/pricing-faqs/).
+
+Adjust the sliders below according to your needs. Most should be self-explanatory. Partial backup size variation is used to simulate ups and downs in the backup source data size - if your data only grows push the minimal value to at least 0, for exampleself.
+
+wasabicalc:
+  * was created with Python and [Dash by plot.ly](https://dash.plot.ly/),
+  * is licensed under AGPL,
+  * and you can find the source [on Github](https://github.com/magikmw/wasabicalc).
+
+  [magikmw](https://michalwalczak.eu/)
+'''),
     ]),
 
     html.Div(className='graph', id='output-graph'),
@@ -56,7 +74,7 @@ app.layout = html.Div(children=[
                        )]),
 
         html.Div(className='label_with_inputs', children=[
-            html.Label('Partial backup size variation (min) [GB]: '),
+            html.Label('Partial backup size variation [GB]: '),
             dcc.RangeSlider(id='partial_size_var',
                             value=[-1, 1], min=-100, max=100,
                             marks={i: '{0}'.format(i)

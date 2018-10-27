@@ -6,8 +6,10 @@ h1{
 
 .textcontainer {
     text-align: justify;
-    margin-left: 10%;
-    margin-right: 10%;
+    padding-left: 5ch;
+    padding-right: 5ch;
+    margin:auto;
+    max-width: 75ch;
 }
 
 .inputs {
