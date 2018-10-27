@@ -42,7 +42,7 @@ $ pip install -r requirements.txt
 
 You can run wasabicalc.wasabicalc as a python module - edit values in the first section of the file to output a set of datapoints directly or to CLI.
 
-Or, run python3 wasabicalc/wasabicalc-web.py to start a default dev server on localhost.
+Or, run python3 wasabicalc/wasabicalcweb.py to start a default dev server on localhost.
 
 ## Running the tests
 
