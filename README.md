@@ -1,6 +1,7 @@
 # wasabicalc
 
-A cost calculator for incremental backup schemes to Wasabi storage.
+A cost calculator for incremental backup schemes to Wasabi storage.  
+Hosted at [https://michalwalczak.eu/wasabicalc/](https://michalwalczak.eu/wasabicalc/).
 
 ## What is this?
 
@@ -40,7 +41,7 @@ $ source ./venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
-You can run wasabicalc.wasabicalc as a python module - edit values in the first section of the file to output a set of datapoints directly or to CLI.
+You can run wasabicalc/wasabicalc.py as a python module - edit values in the first section of the file to output a set of datapoints directly or to CLI.
 
 Or, run python3 wasabicalc/wasabicalcweb.py to start a default dev server on localhost.
 
@@ -52,9 +53,50 @@ TODO, along with the tests
 
 ## Deployment
 
+Flask and dash recommend running a dedicated production server or a fastcgi module.  
+I've set it up on [my production site](https://michalwalczak.eu/wasabicalc/) with lighttpd and `ModFastCGI`.  
+There's plenty of tutorials on how to set up FCGI via nginx or Apache online.
+
+Steps:
+
+0. Follow steps for dev environment and make sure the directory and files are accessible to the lighttpd's user. Due to security reasons it's recommended the python files are not in the server's document root (are not accessible directly).
+1. Modify the included `wasabicalc.fcgi` file's hashbang line and point to your venv python3 interpreter.
+2. Modify the two variables in `wasabicalcweb.py` to your needs:
+``` python
+app.config.update({
+    # as the proxy server will remove the prefix
+    'routes_pathname_prefix': '/',
+
+    # the front-end will prefix this string to the requests
+    # that are made to the proxy server
+    'requests_pathname_prefix': '/wasabicalc/'
+})
 ```
-TODO
+2. Modify your lighttpd configuration like this:
+
+``` bash
+# Enable required modules
+server.modules += ('mod_rewrite', 'mod_fastcgi')
+
+# Snippet beow can live inside a virtual host or URL tag
+# Use url.rewrite-once for pretty URLs like https://example.com/wasabicalc/
+fastcgi.server = (
+    "/wasabicalc.fcgi" => (
+        "wasabicalc" => (
+        "socket" => "/tmp/wasabicalc-fcgi.sock",
+        "bin-path" => "/opt/wasabicalc/wasabicalc/wasabicalc.fcgi",
+        "check-local" => "disable",
+        "max-procs" => 1
+     ))
+)
+
+url.rewrite-once = (
+    "^(/.*)wasabicalc(/.*)$" => "/wasabicalc.fcgi$2"
+    )
+}
 ```
+
+3. Restart or reload lighttpd
 
 ## Built With
 
