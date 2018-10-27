@@ -28,7 +28,7 @@ I've created wasabicalc due to wasabi's minimum 90-day storage charge. While ove
 
 You can read more about the minimum 90-day storage charge in wasabi's [pricing FAQ](https://wasabi.com/pricing/pricing-faqs/).
 
-Adjust the sliders below according to your needs. Most should be self-explanatory. Partial backup size variation is used to simulate ups and downs in the backup source data size - if your data only grows push the minimal value to at least 0, for exampleself.
+Adjust the sliders below according to your needs. Most should be self-explanatory. Partial backup size variation is used to simulate ups and downs in the backup source data size - if your data only grows push the minimal value to at least 0, for example.
 
 wasabicalc:
   * was created with Python and [Dash by plot.ly](https://dash.plot.ly/),
