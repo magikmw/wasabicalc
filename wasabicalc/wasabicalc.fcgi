@@ -1,6 +1,6 @@
 #!/srv/http/michalwalczak.eu/wasabicalc/venv/bin/python3
 from flup.server.fcgi import WSGIServer
-from wasabicalcweb.app import server
+from wasabicalcweb import app
 
 if __name__ == '__main__':
-    WSGIServer(server).run()
+    WSGIServer(app.server).run()
