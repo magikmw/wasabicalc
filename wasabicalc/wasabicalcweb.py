@@ -13,7 +13,7 @@ app.config.update({
 
     # the front-end will prefix this string to the requests
     # that are made to the proxy server
-    'requests_pathname_prefix': '/wasabicalc/'
+    'requests_pathname_prefix': '/wasabicalc'
 })
 
 app.css.append_css({
