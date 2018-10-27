@@ -9,7 +9,7 @@ app = dash.Dash()
 
 app.config.update({
     # as the proxy server will remove the prefix
-    'routes_pathname_prefix': '',
+    'routes_pathname_prefix': '/',
 
     # the front-end will prefix this string to the requests
     # that are made to the proxy server
