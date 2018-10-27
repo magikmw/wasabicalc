@@ -7,15 +7,6 @@ import wasabicalc
 
 app = dash.Dash()
 
-app.config.update({
-    # as the proxy server will remove the prefix
-    'routes_pathname_prefix': '/',
-
-    # the front-end will prefix this string to the requests
-    # that are made to the proxy server
-    'requests_pathname_prefix': '/wasabicalc/'
-})
-
 app.css.append_css({
     "external_url":
     "https://cdn.rawgit.com/yegor256/tacit/gh-pages/tacit-css-1.3.3.min.css"
@@ -207,3 +198,12 @@ server = app.server
 
 if __name__ == '__main__':
     app.run_server(debug=True)
+else:
+    app.config.update({
+        # as the proxy server will remove the prefix
+        'routes_pathname_prefix': '/',
+
+        # the front-end will prefix this string to the requests
+        # that are made to the proxy server
+        'requests_pathname_prefix': '/wasabicalc/'
+    })
