@@ -91,7 +91,7 @@ fastcgi.server = (
 )
 
 url.rewrite-once = (
-    "^(/.*)wasabicalc(/.*)$" => "/wasabicalc.fcgi$2"
+    "^(.*)/wasabicalc(/.*)$" => "/wasabicalc.fcgi$2",
     )
 }
 ```
