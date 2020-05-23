@@ -1,4 +1,6 @@
 # wasabicalc
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmagikmw%2Fwasabicalc.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmagikmw%2Fwasabicalc?ref=badge_shield)
+
 
 A cost calculator for incremental backup schemes to Wasabi storage.  
 Hosted at [https://michalwalczak.eu/wasabicalc/](https://michalwalczak.eu/wasabicalc/).
@@ -117,6 +119,9 @@ When I get a release out I'll use [SemVer](http://semver.org/) for versioning.
 ## License
 
 This project is licensed under the AGPL v3.0 License - see the [LICENSE.txt](LICENSE.txt) file for details
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmagikmw%2Fwasabicalc.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmagikmw%2Fwasabicalc?ref=badge_large)
 
 ## Acknowledgments
 
