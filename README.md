@@ -1,7 +1,7 @@
 # wasabicalc
 
 A cost calculator for incremental backup schemes to Wasabi storage.  
-Hosted at [https://michalwalczak.eu/wasabicalc/](https://michalwalczak.eu/wasabicalc/).
+~~Hosted at [https://michalwalczak.eu/wasabicalc/](https://michalwalczak.eu/wasabicalc/).~~
 
 ## What is this?
 
